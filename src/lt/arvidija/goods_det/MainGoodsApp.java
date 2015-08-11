@@ -12,7 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
-
 import javafx.application.Application;
 //import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -22,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 public class MainGoodsApp extends Application {
     /**
@@ -95,20 +95,19 @@ public class MainGoodsApp extends Application {
     ////*********duomenu uzkrovimo pabaiga/////////////******************//
     ///////////////////////////////////////////////////////////////////////
 	/**
-	 * dar bandyta Git 16.55
-	 * sdgsdgzzz
-	 * verciu gavimas
+	 * pagrindinins paleidimas
 	 */
     
-	    private Stage primaryStage;
+	private Stage primaryStage;
     private BorderPane rootLayout;
+    
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Prekës");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/Vizit.png"));//turi but mazo formato 20x20piks
-//		this.primaryStage.getIcons().add(new Image("file:resources/images/Vizit.ico"));
         initRootLayout();//paleidzia pgr groba
+        //rodytiGoods_DetOverview();
         showGoods_DetOverview();//paleidzia papildoma -> idetini groba
     }
     /**
@@ -149,7 +148,35 @@ public class MainGoodsApp extends Application {
             e.printStackTrace();
         }
     }
+//*********************************************
+    public void rodytiGoods_DetOverview() {
+        try {
+            // Load GoodsDetail overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
+            AnchorPane goods_DetOverview = (AnchorPane) loader.load();
 
+            // Set GoodsDetail overview into the center of root layout.
+           // rootLayout.setCenter(goods_DetOverview);//komanda -> ideda papildoma groba i pagrindini
+            // Give the controller access to the main app.
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Person");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	       // Scene scene = new Scene(page);
+	      
+            Goods_DetEditDialogControl controller = loader.getController();
+            controller.setMainGoodsApp(this);//surisam  pagrindine klase su rodymo kontroleriu nes rootLayout yra aprasytas auksciau
+            Scene scene = new Scene(goods_DetOverview);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+
+        	} catch (IOException e) {				
+            e.printStackTrace();
+        }
+    }
+
+//***************************
     /**
      * Returns the main stage.
      * @return
@@ -162,7 +189,59 @@ public class MainGoodsApp extends Application {
      * Returns the data as an observable list of GoodsDetail. 
      * @return
      */
+	
+	/**
+	 * Opens a dialog to edit details for the specified goodsdetail. If the user
+	 * clicks OK, the changes are saved into the provided goodsdetail object and
+	 * true is returned.
+	 * 
+	 * @param goodsdetail the goodsdetail object to be edited
+	 * @return true if the user clicked OK, false otherwise.
+	 */
+    /*
+	public boolean showGoodsDetailEditDialog(GoodsDetailModel goodsdetail) {
+	    try {
+	        // Load the fxml file and create a new stage for the popup dialog.
+	        FXMLLoader loader = new FXMLLoader();
+	        loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
+	        AnchorPane page = (AnchorPane) loader.load();
 
+	        // Create the dialog Stage.
+	        Stage dialogStage = new Stage();
+	        dialogStage.setTitle("Edit Person");
+	        dialogStage.initModality(Modality.WINDOW_MODAL);
+	        dialogStage.initOwner(primaryStage);
+	        Scene scene = new Scene(page);
+	        dialogStage.setScene(scene);
+
+	        // Set the person into the controller.
+	        
+	        Goods_DetEditDialogControl controller = loader.getController();
+	        controller.setDialogStage(dialogStage);
+	        controller.setGoodsDetailsEdit(goodsdetail);
+			
+	        // Show the dialog and wait until the user closes it
+	        dialogStage.showAndWait();
+
+	        return controller.isOkClicked();
+	        //return true;
+			
+		} catch (IOException e) {
+			// Exception gets thrown if the fxml file could not be loaded
+			e.printStackTrace();
+
+			Alert alertErrDelet = new Alert(AlertType.ERROR);
+    		alertErrDelet.setTitle("Klaida paleidþiand Dialog");//().getScene().getWindow();
+    		Stage stageErr = (Stage) alertErrDelet.getDialogPane().getScene().getWindow();
+    		stageErr.getIcons().add(new Image("file:resources/images/Vizit.png"));
+    		alertErrDelet.setHeaderText("Klaida paleidþiant Dialog koregavime");
+    		alertErrDelet.setContentText(e.getMessage());
+    		alertErrDelet.showAndWait();
+
+			return false;
+		}
+	}
+*/
     
     public static void main(String[] args) {
         launch(args);

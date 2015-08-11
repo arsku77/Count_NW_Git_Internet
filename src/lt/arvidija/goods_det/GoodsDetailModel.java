@@ -19,23 +19,27 @@ public class GoodsDetailModel {
 	/**
 	*apsirasome kintamuosius -> laukus, kurie bus fxml faile
 	*/
-    private final IntegerProperty gdsAutoID;// auto id
-    private final IntegerProperty gdsID;// kodas
+    private IntegerProperty gdsAutoID;// auto id
+    private IntegerProperty gdsID;// kodas
 
-    private final StringProperty gdsName;//prekes detalios pvd
-    private final StringProperty gdsDetDim;//matmuo
+    private StringProperty gdsName;//prekes detalios pvd
+    private StringProperty gdsDetDim;//matmuo
     
-    private final StringProperty gdsNote;//pastaba
-    private final SimpleDoubleProperty gdsPrice;//kaina
-    private final ObjectProperty<LocalDate> gdsDateWr;//prekes irasymo data
+    private StringProperty gdsNote;//pastaba
+    private SimpleDoubleProperty gdsPrice;//kaina
+    private ObjectProperty<LocalDate> gdsDateWr;//prekes irasymo data
 
     /**
-     * Default constructor. -> jo gali ir nebuti, nes pagal tylejima ir taip jo vertes nulines
+     * Default constructor. -> jo prireikia, kai pridedame naujas vertes -> tusciam objektui susikurti
      */
-   /* public GoodsDetail() {
-        this(0, 0, null, null);
-    }*/
+    public GoodsDetailModel() {
+        //this(0, 0, null, null, null, 0, null);
+    }
 
+	/**
+	 * Default constructor.
+	 */
+	
     /**
      * Constructor with some initial data.
      * 
@@ -78,7 +82,7 @@ public class GoodsDetailModel {
     public IntegerProperty gdsAutoIDProperty() {
         return gdsAutoID;
     }
-
+/////////////////////////////////////////////////////
     public int getGdsID() {
         return gdsID.get();
     }
@@ -88,7 +92,7 @@ public class GoodsDetailModel {
     public IntegerProperty gdsIDProperty() {
         return gdsID;
     }
-   
+/////////////////////////////////////////////////////
     public String getGdsName() {
         return gdsName.get();
     }
@@ -98,7 +102,7 @@ public class GoodsDetailModel {
     public StringProperty gdsNameProperty() {
         return gdsName;
     }
-
+/////////////////////////////////////////////////////
     public String getGdsDetDim() {
         return gdsDetDim.get();
     }
@@ -108,18 +112,7 @@ public class GoodsDetailModel {
     public StringProperty gdsDetDimProperty() {
         return gdsDetDim;
     }
-    
-    public String getGdsNote() {
-        return gdsNote.get();
-    }
-    public void setGdsNote(String gdsNote) {
-        this.gdsNote.set(gdsNote);
-    }
-    public StringProperty gdsNoteProperty() {
-        return gdsNote;
-    }
-  
-    
+/////////////////////////////////////////////////////
     public double getGdsPrice() {
         return gdsPrice.get();
     }
@@ -129,7 +122,7 @@ public class GoodsDetailModel {
     public SimpleDoubleProperty gdsPriceProperty() {
         return gdsPrice;
     }
-
+/////////////////////////////////////////////////////
     public LocalDate getGdsDateWr() {
         return gdsDateWr.get();
     }
@@ -139,4 +132,15 @@ public class GoodsDetailModel {
     public ObjectProperty<LocalDate> gdsDateWrProperty() {
         return gdsDateWr;
     }
+/////////////////////////////////////////////////////
+    public String getGdsNote() {
+    	return gdsNote.get();
+    }
+    public void setGdsNote(String gdsNote) {
+    	this.gdsNote.set(gdsNote);
+    }
+    public StringProperty gdsNoteProperty() {
+    	return gdsNote;
+    }
+/////////////////////////////////////////////////////
 }

@@ -1,6 +1,7 @@
 package lt.arvidija.goods_det;
 import java.util.Optional;
 
+//import ch.makery.address.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -49,7 +50,7 @@ public class Goods_DetViewControl {
 /*private ObservableList<GoodsDetail> goods_detData = FXCollections.observableArrayList();	*/
 
     // buvo 
-  //  private MainGoodsApp mainGoodsApp;
+   private MainGoodsApp mainGoodsApp;//reikalingas kai add new dialog langas iskyla
     /**
      * The constructor.
      * The constructor is called before the initialize() method.
@@ -81,6 +82,8 @@ public class Goods_DetViewControl {
     * duomenu sarasas yra uzpildytas pagrindineje klaseje MainGoodsApp
     */
     public void setMainGoodsApp(MainGoodsApp mainGoodsApp) {
+    	this.mainGoodsApp = mainGoodsApp;
+    
         // Add observable list data to the table
     		 goods_detTable.setItems(mainGoodsApp.getGoods_detData());
     	 
@@ -104,10 +107,10 @@ public class Goods_DetViewControl {
         gdsDetDimColumn.setCellValueFactory(cellData -> cellData.getValue().gdsDetDimProperty());
 
         // Clear person details.
-        GoodsDetailsInfo(null);
+        setGoodsDetailsInfo(null);
         // Listen for selection changes and show the person details when changed.
         goods_detTable.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> GoodsDetailsInfo(newValue));
+                (observable, oldValue, newValue) -> setGoodsDetailsInfo(newValue));
 
     }
 
@@ -122,10 +125,16 @@ public class Goods_DetViewControl {
      * si metoda naudos interfeisas listeneris, idetas i sios klases initialize metoda
      * @param goodsdetail
      */
-	//****************listenerio reagavimo i eiluciu vaiksciojima pabaiga
- 	//******metodas, kuris isaukiamas vaiksciojant po eilutes -> jis labelius uzpildo reiksmemis is modelio
- 	//***geteriu ir seteriu, kur perduodama siam modeliui newValue is listenerio
-    private void GoodsDetailsInfo(GoodsDetailModel goodsdetail) {
+ 	////////////////////////////////////////////////////////////////////////////
+	//****************listenerio reagavimo i eiluciu vaiksciojima pabaiga*****//
+ 	////////////////////////////////////////////////////////////////////////////
+ 	
+ 	////////////////////////////////////////////////////////////////////////////
+ 	//******metodas labelius uzpildo reiksmemis is modelio geteriu ir seteriu,// 
+ 	//*******kur perduodama siam modeliui newValue is listenerio*****///////////
+ 	//*******jis-> isaukiamas vaiksciojant po eilutes****************///////////  
+ 	////////////////////////////////////////////////////////////////////////////
+    private void setGoodsDetailsInfo(GoodsDetailModel goodsdetail) {
 		if (goodsdetail != null) {
 			gdsNameLabel.setText(goodsdetail.getGdsName());
 			gdsDetDimLabel.setText(goodsdetail.getGdsDetDim());
@@ -140,8 +149,9 @@ public class Goods_DetViewControl {
 			gdsDateWrLabel.setText("");
 		}
 	}
-	//********metodo, reagavusio i listeneri, pabaiga
-    //**************delete knopkes reagavimas
+    //////////////////////////////////////////////////////////
+	//********metodo, reagavusio i listeneri, pabaiga*****////
+    //////////////////////////////////////////////////////////
     /**
      * Called when the user clicks on the delete button.
      */
@@ -194,4 +204,57 @@ public class Goods_DetViewControl {
     //****************delete knopkes pabaiga*************//
     ///////////////////////////////////////////////////////
     
+    ///////////////////////////////////////////////////////
+    //****************new knopkes paspaudimas**********////
+    ///////////////////////////////////////////////////////
+    /**
+     * Called when the user clicks the new button. Opens a dialog to edit
+     * details for a new person.
+     */
+    /*
+    @FXML
+    private void handleNewGoodsDetail() {
+    	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();
+        mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
+        boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
+        if (okClicked) {
+        	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);
+        }
+    }*/
+    ///////////////////////////////////////////////////////
+    //****************new knopkes paspaudimas pabaiga**////
+    ///////////////////////////////////////////////////////
+
+    ///////////////////////////////////////////////////////
+    //************edit knopkes paspaudimas*************////
+    ///////////////////////////////////////////////////////
+    /**
+     * Called when the user clicks the edit button. Opens a dialog to edit
+     * details for the selected person.
+     */
+    /*
+    @FXML
+    private void handleEditPerson() {
+        GoodsDetailModel selectedGoodsDetailModel = goods_detTable.getSelectionModel().getSelectedItem();
+        if (selectedGoodsDetailModel != null) {
+            boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(selectedGoodsDetailModel);
+            if (okClicked) {
+            	setGoodsDetailsInfo(selectedGoodsDetailModel);
+            }
+
+        } else {
+            // Nothing selected.
+    		Alert alertErrDelet = new Alert(AlertType.ERROR);
+    		alertErrDelet.setTitle("Nepazymeta nieko");//().getScene().getWindow();
+    		Stage stageErr = (Stage) alertErrDelet.getDialogPane().getScene().getWindow();
+    		stageErr.getIcons().add(new Image("file:resources/images/Vizit.png"));
+    		alertErrDelet.setHeaderText("Nepazymetas duomuo");
+    		alertErrDelet.setContentText("Pazymekite eilute, tada galesite ja redaguoti!");
+    		alertErrDelet.showAndWait();
+        }
+    }*/
+    ///////////////////////////////////////////////////////
+    //************edit knopkes paspaudimas pabaiga*****////
+    ///////////////////////////////////////////////////////
+
 }
