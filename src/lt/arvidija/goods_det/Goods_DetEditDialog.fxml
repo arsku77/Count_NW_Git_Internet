@@ -54,7 +54,7 @@
       <Separator layoutX="14.0" layoutY="415.0" prefHeight="10.0" prefWidth="624.0" AnchorPane.bottomAnchor="108.0" />
       <HBox id="HBox" alignment="CENTER" layoutX="22.0" layoutY="475.0" minWidth="-1.0" spacing="5.0" AnchorPane.bottomAnchor="14.0">
          <children>
-            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleOk" prefWidth="90.0" text="Exit">
+            <Button defaultButton="true" mnemonicParsing="false" onAction="#handleCancel" prefWidth="90.0" text="Exit">
                <HBox.margin>
                   <Insets right="300.0" />
                </HBox.margin>

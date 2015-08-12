@@ -157,17 +157,17 @@ public class MainGoodsApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
             AnchorPane goods_DetOverview = (AnchorPane) loader.load();
-	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Prekës");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(primaryStage);
+	        Stage dialogStageGDS = new Stage();
+	        dialogStageGDS.setTitle("Edit Prekës");
+	        dialogStageGDS.initModality(Modality.WINDOW_MODAL);
+	        dialogStageGDS.initOwner(primaryStage);
 	       // Scene scene = new Scene(page);
 	      
             Goods_DetEditDialogControl controller = loader.getController();
             controller.setMainGoodsApp(this);//surisam  pagrindine klase su rodymo kontroleriu nes rootLayout yra aprasytas auksciau
             Scene scene = new Scene(goods_DetOverview);
-            dialogStage.setScene(scene);
-            dialogStage.showAndWait();
+            dialogStageGDS.setScene(scene);
+            dialogStageGDS.showAndWait();
 
         	} catch (IOException e) {				
             e.printStackTrace();
@@ -203,23 +203,21 @@ public class MainGoodsApp extends Application {
 	        FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
 	        AnchorPane goods_DetOverview = (AnchorPane) loader.load();
-
 	        // Create the dialog Stage.
-	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit prekæ");
-	        dialogStage.initModality(Modality.WINDOW_MODAL);
-	        dialogStage.initOwner(primaryStage);
+	        Stage dialogStageGDS = new Stage();
+	        dialogStageGDS.setTitle("Edit prekæ");
+	        dialogStageGDS.getIcons().add(new Image("file:resources/images/Vizit.png"));
+	        dialogStageGDS.initModality(Modality.WINDOW_MODAL);
+	        dialogStageGDS.initOwner(primaryStage);
 	        Scene scene = new Scene(goods_DetOverview);
-	        dialogStage.setScene(scene);
-
+	        dialogStageGDS.setScene(scene);
 	        // Set the person into the controller.
-	        
 	        Goods_DetEditDialogControl controller = loader.getController();
-	        controller.setDialogStage(dialogStage);
+	        controller.setDialogStage(dialogStageGDS);
 	        controller.setGoodsDetailModel(goodsdetail);
 			
 	        // Show the dialog and wait until the user closes it
-	        dialogStage.showAndWait();
+	        dialogStageGDS.showAndWait();
 
 	        return controller.isOkClicked();
 	        //return true;

@@ -224,7 +224,7 @@ public class Goods_DetViewControl {
 
     	
     	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();
-        mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
+        //mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
         boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
         if (okClicked) {
         	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);
