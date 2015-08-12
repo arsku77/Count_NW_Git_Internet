@@ -1,6 +1,7 @@
 package lt.arvidija.goods_det;
 import java.util.Optional;
 
+//import ch.makery.address.model.Person;
 //import ch.makery.address.MainApp;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -84,7 +85,7 @@ public class Goods_DetViewControl {
     public void setMainGoodsApp(MainGoodsApp mainGoodsApp) {
     	this.mainGoodsApp = mainGoodsApp;
     
-        // Add observable list data to the table
+        // Pridedam observable list duomenis to the table
     		 goods_detTable.setItems(mainGoodsApp.getGoods_detData());
     	 
        /* goods_detTable.setItems(getGoods_detData());*/
@@ -211,16 +212,24 @@ public class Goods_DetViewControl {
      * Called when the user clicks the new button. Opens a dialog to edit
      * details for a new person.
      */
-    /*
+    
     @FXML
     private void handleNewGoodsDetail() {
+    	//mainGoodsApp.rodytiGoods_DetOverview(); sitas veikia
+        /*Person tempPerson = new Person();
+        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
+        if (okClicked) {
+            mainApp.getPersonData().add(tempPerson);
+        }*/
+
+    	
     	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();
         mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
         boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
         if (okClicked) {
         	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);
         }
-    }*/
+    }
     ///////////////////////////////////////////////////////
     //****************new knopkes paspaudimas pabaiga**////
     ///////////////////////////////////////////////////////

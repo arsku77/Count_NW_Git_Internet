@@ -18,6 +18,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -155,12 +157,8 @@ public class MainGoodsApp extends Application {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
             AnchorPane goods_DetOverview = (AnchorPane) loader.load();
-
-            // Set GoodsDetail overview into the center of root layout.
-           // rootLayout.setCenter(goods_DetOverview);//komanda -> ideda papildoma groba i pagrindini
-            // Give the controller access to the main app.
 	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Person");
+	        dialogStage.setTitle("Edit Prekës");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(primaryStage);
 	       // Scene scene = new Scene(page);
@@ -198,27 +196,27 @@ public class MainGoodsApp extends Application {
 	 * @param goodsdetail the goodsdetail object to be edited
 	 * @return true if the user clicked OK, false otherwise.
 	 */
-    /*
+    
 	public boolean showGoodsDetailEditDialog(GoodsDetailModel goodsdetail) {
 	    try {
 	        // Load the fxml file and create a new stage for the popup dialog.
 	        FXMLLoader loader = new FXMLLoader();
 	        loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
-	        AnchorPane page = (AnchorPane) loader.load();
+	        AnchorPane goods_DetOverview = (AnchorPane) loader.load();
 
 	        // Create the dialog Stage.
 	        Stage dialogStage = new Stage();
-	        dialogStage.setTitle("Edit Person");
+	        dialogStage.setTitle("Edit prekæ");
 	        dialogStage.initModality(Modality.WINDOW_MODAL);
 	        dialogStage.initOwner(primaryStage);
-	        Scene scene = new Scene(page);
+	        Scene scene = new Scene(goods_DetOverview);
 	        dialogStage.setScene(scene);
 
 	        // Set the person into the controller.
 	        
 	        Goods_DetEditDialogControl controller = loader.getController();
 	        controller.setDialogStage(dialogStage);
-	        controller.setGoodsDetailsEdit(goodsdetail);
+	        controller.setGoodsDetailModel(goodsdetail);
 			
 	        // Show the dialog and wait until the user closes it
 	        dialogStage.showAndWait();
@@ -241,7 +239,7 @@ public class MainGoodsApp extends Application {
 			return false;
 		}
 	}
-*/
+
     
     public static void main(String[] args) {
         launch(args);

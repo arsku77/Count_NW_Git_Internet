@@ -1,5 +1,7 @@
 package lt.arvidija.goods_det;
 
+//import ch.makery.address.model.Person;
+//import ch.makery.address.util.DateUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -18,6 +20,8 @@ import javafx.stage.Stage;
 public class Goods_DetEditDialogControl {
 //apsibreziam textinius laukus
     @FXML
+    private TextField gdsAutoIDFieldEd;
+    @FXML
     private TextField gdsIDFieldEd;
     @FXML
     private TextField gdsNameFieldEd;
@@ -31,7 +35,7 @@ public class Goods_DetEditDialogControl {
     private TextField gdsNoteFieldEd;
 
 
-    private Stage dialogStage;
+    private Stage dialogStageGoodsEdit;
     private GoodsDetailModel goodsdetail;
     private boolean okClicked = false;
 
@@ -53,10 +57,10 @@ public class Goods_DetEditDialogControl {
     /**
      * Sets the stage of this dialog.
      * 
-     * @param dialogStage
+     * @param dialogStageGoodsEdit
      */
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
+    public void setDialogStage(Stage dialogStageGoodsEdit) {
+        this.dialogStageGoodsEdit = dialogStageGoodsEdit;
     }
 
     /**
@@ -64,8 +68,10 @@ public class Goods_DetEditDialogControl {
      * 
      * @param goodsdetail
      */
-    public void setGoodsDetailsEdit(GoodsDetailModel goodsdetail) {
+
+    public void setGoodsDetailModel(GoodsDetailModel goodsdetail) {
         this.goodsdetail = goodsdetail;
+        gdsAutoIDFieldEd.setText(Integer.toString(goodsdetail.getGdsAutoID()));
         gdsIDFieldEd.setText(Integer.toString(goodsdetail.getGdsID()));
         gdsNameFieldEd.setText(goodsdetail.getGdsName());
         gdsDetDimFieldEd.setText(goodsdetail.getGdsDetDim());
@@ -90,6 +96,7 @@ public class Goods_DetEditDialogControl {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
+        	goodsdetail.setGdsAutoID(Integer.parseInt(gdsAutoIDFieldEd.getText()));
             goodsdetail.setGdsID(Integer.parseInt(gdsIDFieldEd.getText()));
         	goodsdetail.setGdsName(gdsNameFieldEd.getText());
             goodsdetail.setGdsDetDim(gdsDetDimFieldEd.getText());
@@ -98,7 +105,7 @@ public class Goods_DetEditDialogControl {
             goodsdetail.setGdsDateWr(DateUtil.parse(gdsDateWrFieldEd.getText()));
 
             okClicked = true;
-            dialogStage.close();
+            dialogStageGoodsEdit.close();
         }
     }
 
@@ -107,7 +114,7 @@ public class Goods_DetEditDialogControl {
      */
     @FXML
     private void handleCancel() {
-        dialogStage.close();
+        dialogStageGoodsEdit.close();
     }
 
     /**
@@ -117,6 +124,17 @@ public class Goods_DetEditDialogControl {
      */
     private boolean isInputValid() {
         String errorMessage = "";
+/////////////////////////////////////////////////////////////////////////////////////////        
+        if (gdsAutoIDFieldEd.getText() == null || gdsAutoIDFieldEd.getText().length() == 0) {
+        	errorMessage += "Nëra reikðmës auto kode!\n"; 
+        } else {
+        	try {
+        		Integer.parseInt(gdsAutoIDFieldEd.getText());
+        	} catch (NumberFormatException e) {
+        		errorMessage += 
+        				"Yra reikðmë auto kode, bet ji netinkama (Tai turi bûti skaièius be kablelio)!\n"; 
+        									}
+        }
 /////////////////////////////////////////////////////////////////////////////////////////        
         if (gdsIDFieldEd.getText() == null || gdsIDFieldEd.getText().length() == 0) {
             errorMessage += "Nëra reikðmës kode!\n"; 

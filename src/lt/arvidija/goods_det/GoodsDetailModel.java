@@ -19,21 +19,21 @@ public class GoodsDetailModel {
 	/**
 	*apsirasome kintamuosius -> laukus, kurie bus fxml faile
 	*/
-    private IntegerProperty gdsAutoID;// auto id
-    private IntegerProperty gdsID;// kodas
+    private final IntegerProperty gdsAutoID;// auto id
+    private final IntegerProperty gdsID;// kodas
 
-    private StringProperty gdsName;//prekes detalios pvd
-    private StringProperty gdsDetDim;//matmuo
+    private final StringProperty gdsName;//prekes detalios pvd
+    private final StringProperty gdsDetDim;//matmuo
     
-    private StringProperty gdsNote;//pastaba
-    private SimpleDoubleProperty gdsPrice;//kaina
-    private ObjectProperty<LocalDate> gdsDateWr;//prekes irasymo data
+    private final StringProperty gdsNote;//pastaba
+    private final SimpleDoubleProperty gdsPrice;//kaina
+    private final ObjectProperty<LocalDate> gdsDateWr;//prekes irasymo data
 
     /**
      * Default constructor. -> jo prireikia, kai pridedame naujas vertes -> tusciam objektui susikurti
      */
     public GoodsDetailModel() {
-        //this(0, 0, null, null, null, 0, null);
+        this(0, 0, "Default gds name", "Default gds dimension", null, 0.0, null);
     }
 
 	/**
@@ -56,8 +56,13 @@ public class GoodsDetailModel {
         this.gdsDetDim = new SimpleStringProperty(gdsDetDim);
         this.gdsNote = new SimpleStringProperty(gdsNote);
         this.gdsPrice = new SimpleDoubleProperty(gdsPrice);//gdsDateWr.getYear()
-        this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(gdsDateWr.toLocalDate().getYear(), gdsDateWr.toLocalDate().getMonth(), gdsDateWr.toLocalDate().getDayOfMonth()));//int year = date.getYear();
-       // this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));//int year = date.getYear();
+
+        if (gdsDateWr == null) {
+        		this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
+        		} else {
+        		this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(gdsDateWr.toLocalDate().getYear(), gdsDateWr.toLocalDate().getMonth(), gdsDateWr.toLocalDate().getDayOfMonth()));//int year = date.getYear();
+        		}
+        //this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));//int year = date.getYear();
 
         /**
          *  Some initial dummy data, just for convenient testing.
