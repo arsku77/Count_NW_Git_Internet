@@ -215,18 +215,9 @@ public class Goods_DetViewControl {
     
     @FXML
     private void handleNewGoodsDetail() {
-    	//mainGoodsApp.rodytiGoods_DetOverview(); sitas veikia
-        /*Person tempPerson = new Person();
-        boolean okClicked = mainApp.showPersonEditDialog(tempPerson);
-        if (okClicked) {
-            mainApp.getPersonData().add(tempPerson);
-        }*/
-
-    	
-    	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();
-        //mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
+    	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();//kuriamas objektas is klases GoodsDetailModel
         boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
-        if (okClicked) {
+        if (okClicked) {//laukia, kol naujame lange bus paspausta Ok klaviðas ir tada bus pridëti nauji duomenys
         	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);
         }
     }

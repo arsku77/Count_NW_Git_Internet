@@ -30,10 +30,11 @@ public class GoodsDetailModel {
     private final ObjectProperty<LocalDate> gdsDateWr;//prekes irasymo data
 
     /**
-     * Default constructor. -> jo prireikia, kai pridedame naujas vertes -> tusciam objektui susikurti
+     * Default constructor. -> suteikiame defaultines-nulines reiksmes nauju duomenu pidymui
+     * t.y. kai spaudziame knopke New - kai duoemu dar nera - juos paimame is sio konstruktoriaus
      */
     public GoodsDetailModel() {
-        this(0, 0, "Default gds name", "Default gds dimension", null, 0.0, null);
+        this(15, 20, "Default gds name", "Default gds dimension", "Default gds note", 89.9987, null);
     }
 
 	/**
@@ -46,7 +47,7 @@ public class GoodsDetailModel {
      * @param gdsName
      * @param gdsDetDim
      *
-     * konstruktoriuje inicijuojame -> sukuriame objektus
+     * konstruktoriuje inicijuojame -> sukuriame objektus -> per ji praeina, kad ir vedant nauja
      */
     public GoodsDetailModel(int gdsAutoID, int gdsID, String gdsName, String gdsDetDim, 
     		String gdsNote, double gdsPrice, Date gdsDateWr) {
@@ -63,18 +64,10 @@ public class GoodsDetailModel {
         		this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(gdsDateWr.toLocalDate().getYear(), gdsDateWr.toLocalDate().getMonth(), gdsDateWr.toLocalDate().getDayOfMonth()));//int year = date.getYear();
         		}
         //this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));//int year = date.getYear();
-
-        /**
-         *  Some initial dummy data, just for convenient testing.
-         *  Padarome fiktyvius fiksuotus duomenis
-         */
-        //this.gdsNote = new SimpleStringProperty("Apar==yrrzsymas");
-        //this.gdsPrice = new SimpleDoubleProperty(1234);
-        //this.gdsDateWr = new SimpleObjectProperty<LocalDate>(LocalDate.of(1999, 2, 21));
     }
     /**
     * geteriai, seteriai (skirti objekto savybems nuskaityti - get, ir savybems pakeisti - set)
-    * jie butini -> kitaip nesukuria objekto su new 
+    * jie butini -> kad gauti ar pakeisti objekto savybes -> siuo atveju prekiu lauku reiksmes
     * ir propertys
     */
     
