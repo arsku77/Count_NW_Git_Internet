@@ -37,7 +37,7 @@
                            <children>
                               <HBox alignment="BOTTOM_LEFT" prefHeight="44.0" prefWidth="318.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0">
                                  <children>
-                                    <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="90.0" text="Exit">
+                                    <Button mnemonicParsing="false" onAction="#handleCancelGDS" prefHeight="44.0" prefWidth="90.0" text="Exit">
                                        <HBox.margin>
                                           <Insets right="5.0" />
                                        </HBox.margin>
@@ -124,7 +124,7 @@
                               <Insets right="5.0" />
                            </HBox.margin>
                         </Button>
-                        <Button mnemonicParsing="false" prefHeight="44.0" prefWidth="90.0" text="Edit..">
+                        <Button mnemonicParsing="false" onAction="#handleEditGoodsDet" prefHeight="44.0" prefWidth="90.0" text="Edit..">
                            <HBox.margin>
                               <Insets left="5.0" right="5.0" />
                            </HBox.margin>

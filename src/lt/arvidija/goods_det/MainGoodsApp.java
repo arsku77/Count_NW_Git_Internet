@@ -34,7 +34,7 @@ public class MainGoodsApp extends Application {
 	// apsibreziam kolekcija - sarasa
    	private ObservableList<GoodsDetailModel> goods_detData = FXCollections.observableArrayList();	
 
-   	// sàraso geteris -> i ji kreipiasi controleris, kai lentelei priskirtumw ta sarasa, 
+   	// sàraso geteris -> i ji kreipiasi controleris, kai lentelei priskirtume ta sarasa, 
    	// t.y goods_detTable.setItems(mainGoodsApp.getGoods_detData());
    	public ObservableList<GoodsDetailModel> getGoods_detData() {
     return goods_detData;
@@ -108,8 +108,8 @@ public class MainGoodsApp extends Application {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Prekës");
 		this.primaryStage.getIcons().add(new Image("file:resources/images/Vizit.png"));//turi but mazo formato 20x20piks
-        initRootLayout();//paleidzia pgr groba
-        //rodytiGoods_DetOverview();
+
+		initRootLayout();//paleidzia pgr groba
         showGoods_DetOverview();//paleidzia papildoma -> idetini groba
     }
     /**
@@ -133,6 +133,7 @@ public class MainGoodsApp extends Application {
 
     /**
      * Shows the goods overview inside the root layout.
+     * vidinis prekiu grobas
      */
     public void showGoods_DetOverview() {
         try {
@@ -150,31 +151,7 @@ public class MainGoodsApp extends Application {
             e.printStackTrace();
         }
     }
-//*********************************************
-    public void rodytiGoods_DetOverview() {
-        try {
-            // Load GoodsDetail overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainGoodsApp.class.getResource("Goods_DetEditDialog.fxml"));
-            AnchorPane goods_DetOverview = (AnchorPane) loader.load();
-	        Stage dialogStageGDS = new Stage();
-	        dialogStageGDS.setTitle("Edit Prekës");
-	        dialogStageGDS.initModality(Modality.WINDOW_MODAL);
-	        dialogStageGDS.initOwner(primaryStage);
-	       // Scene scene = new Scene(page);
-	      
-            Goods_DetEditDialogControl controller = loader.getController();
-            controller.setMainGoodsApp(this);//surisam  pagrindine klase su rodymo kontroleriu nes rootLayout yra aprasytas auksciau
-            Scene scene = new Scene(goods_DetOverview);
-            dialogStageGDS.setScene(scene);
-            dialogStageGDS.showAndWait();
 
-        	} catch (IOException e) {				
-            e.printStackTrace();
-        }
-    }
-
-//***************************
     /**
      * Returns the main stage.
      * @return
@@ -195,6 +172,7 @@ public class MainGoodsApp extends Application {
 	 * 
 	 * @param goodsdetail the goodsdetail object to be edited
 	 * @return true if the user clicked OK, false otherwise.
+	 * dialoginis langas - iskeliamas kai paspaudziama
 	 */
     
 	public boolean showGoodsDetailEditDialog(GoodsDetailModel goodsdetail) {
@@ -214,12 +192,12 @@ public class MainGoodsApp extends Application {
 	        // Set the person into the controller.
 	        Goods_DetEditDialogControl controller = loader.getController();
 	        controller.setDialogStage(dialogStageGDS);
-	        controller.setGoodsDetailModel(goodsdetail);
+	        controller.setGoodsDetailModel(goodsdetail);//kontrolerio seteris -> jame fxml forma (this) bus uzpidyta modelio duomenimis
 			
 	        // Show the dialog and wait until the user closes it
-	        dialogStageGDS.showAndWait();
-
-	        return controller.isOkClicked();
+	        dialogStageGDS.showAndWait();//laukiam, kol bus uzdarytas langas -> tada return ir ziurim ar paspausta ok edit dialog lange
+	        // paleidziam dialogini langa ir fokusa perduodam-grazinam controlerio isOkClicked
+	        return controller.isOkClicked();//griztam i klases Goods_DetEditDialogControl isOkClicked
 	        //return true;
 			
 		} catch (IOException e) {
@@ -238,6 +216,9 @@ public class MainGoodsApp extends Application {
 		}
 	}
 
+	 public void closeGoodsDetail(){
+		 primaryStage.close();
+	 }
     
     public static void main(String[] args) {
         launch(args);

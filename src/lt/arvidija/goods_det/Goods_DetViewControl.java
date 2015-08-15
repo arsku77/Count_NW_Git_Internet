@@ -84,12 +84,9 @@ public class Goods_DetViewControl {
     */
     public void setMainGoodsApp(MainGoodsApp mainGoodsApp) {
     	this.mainGoodsApp = mainGoodsApp;
-    
         // Pridedam observable list duomenis to the table
     		 goods_detTable.setItems(mainGoodsApp.getGoods_detData());
-    	 
-       /* goods_detTable.setItems(getGoods_detData());*/
-    }
+    	}
     
     /**
      * Initializes the controller class. This method is automatically called
@@ -107,8 +104,8 @@ public class Goods_DetViewControl {
         gdsNameColumn.setCellValueFactory(cellData -> cellData.getValue().gdsNameProperty());
         gdsDetDimColumn.setCellValueFactory(cellData -> cellData.getValue().gdsDetDimProperty());
 
-        // Clear person details.
-        setGoodsDetailsInfo(null);
+        // Isvalom fxml formos laukelius su seteriu 
+        setGoodsDetailsInfo(null);//(jame patikrinam, kad goodsdetail null ir uzpildom labelius tusciomis vertemis su setText("")
         // Listen for selection changes and show the person details when changed.
         goods_detTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> setGoodsDetailsInfo(newValue));
@@ -131,9 +128,10 @@ public class Goods_DetViewControl {
  	////////////////////////////////////////////////////////////////////////////
  	
  	////////////////////////////////////////////////////////////////////////////
- 	//******metodas labelius uzpildo reiksmemis is modelio geteriu ir seteriu,// 
- 	//*******kur perduodama siam modeliui newValue is listenerio*****///////////
- 	//*******jis-> isaukiamas vaiksciojant po eilutes****************///////////  
+ 	//******metodas labelius uzpildo reiksmemis is modelio su geteriu 
+ 	//*******goodsdetail modelyje reiksmes pakeiciamos su sio modelio seteriais
+ 	//*******kurie keiciami remiantis duomenimis is newValue is listenerio (vaiksciojant po lentele)
+ 	//*******arba is edit ar new dialog lango, kuriame jau pakeistos modelio reiksmes
  	////////////////////////////////////////////////////////////////////////////
     private void setGoodsDetailsInfo(GoodsDetailModel goodsdetail) {
 		if (goodsdetail != null) {
@@ -174,7 +172,7 @@ public class Goods_DetViewControl {
     		Optional<ButtonType> result = alertInfoDelet.showAndWait();
     		if (result.get() == ButtonType.OK){
     		    // ... user chose OK
-    			
+    			//cia bus MySQL irasymas su transakcija
             	goods_detTable.getItems().remove(selectedIndex);//istrinam lenteles eilute
     		} else {
     		    // ... user chose CANCEL or closed the dialog
@@ -194,10 +192,6 @@ public class Goods_DetViewControl {
         		alertErrDelet.setHeaderText("Nepazymetas duomuo");
         		alertErrDelet.setContentText("Pazymekite eilute, tada galesite ja trinti!");
         		alertErrDelet.showAndWait();
-        		/*  Dialogs.showWarningDialog(mainGoodsApp.getPrimaryStage(),
-        	        "Please select a person in the table.",
-        	        "No Person Selected", "No Selection");
-*/
         }
 
     }
@@ -213,15 +207,16 @@ public class Goods_DetViewControl {
      * details for a new person.
      */
     
-    @FXML
+    @FXML//paspaudziame new preke
     private void handleNewGoodsDetail() {
-    	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();//kuriamas objektas is klases GoodsDetailModel
-        boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);
-        if (okClicked) {//laukia, kol naujame lange bus paspausta Ok klaviðas ir tada bus pridëti nauji duomenys
-        	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);
-        }
-    }
-    ///////////////////////////////////////////////////////
+    	GoodsDetailModel tempGoodsDetailModel = new GoodsDetailModel();//kuriamas objektas is klases GoodsDetailModel joje yra defaultines konstruktoriaus reiksmes
+        boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(tempGoodsDetailModel);// kurios bus perduodamos fxml formai Goods_DetEditDialog
+        if (okClicked) {//laukia, kol naujame lange bus paspausta Ok klaviðas ir tada bus pridëti nauji duomenys (is fxml formos Goods_DetEditDialog)
+        	//--------------cia bus MySQL irasymas su transakcija
+        	mainGoodsApp.getGoods_detData().add(tempGoodsDetailModel);//paspausta ok fxml edit formoje Goods_DetEditDialog. Tai reiskia, kad
+        }										//formos laukai tvarkingi ir kad modelis jau pakeistas -> cia tik pridedam sio modelio duomenis
+    }										// prie observableArrayList pridedam modelio duomenis (jie pakeiciami metode private void handleOk()
+    /////////////////////////////////////////////////////// kuris duoda okClicked = true;
     //****************new knopkes paspaudimas pabaiga**////
     ///////////////////////////////////////////////////////
 
@@ -232,13 +227,14 @@ public class Goods_DetViewControl {
      * Called when the user clicks the edit button. Opens a dialog to edit
      * details for the selected person.
      */
-    /*
+    
     @FXML
-    private void handleEditPerson() {
+    private void handleEditGoodsDet() {//is lenteles gauname duomenis
         GoodsDetailModel selectedGoodsDetailModel = goods_detTable.getSelectionModel().getSelectedItem();
-        if (selectedGoodsDetailModel != null) {
+        if (selectedGoodsDetailModel != null) {//jei yra pazymeta lenteleje kazkas
             boolean okClicked = mainGoodsApp.showGoodsDetailEditDialog(selectedGoodsDetailModel);
-            if (okClicked) {
+            if (okClicked) {//laukia, kol naujame lange bus paspausta Ok klaviðas ir tada bus pakeisti esantys duomenys
+            	//--------------------cia bus MySQL irasymas su transakcija
             	setGoodsDetailsInfo(selectedGoodsDetailModel);
             }
 
@@ -252,9 +248,20 @@ public class Goods_DetViewControl {
     		alertErrDelet.setContentText("Pazymekite eilute, tada galesite ja redaguoti!");
     		alertErrDelet.showAndWait();
         }
-    }*/
+    }
     ///////////////////////////////////////////////////////
     //************edit knopkes paspaudimas pabaiga*****////
+    ///////////////////////////////////////////////////////
+    
+    ///////////////////////////////////////////////////////
+    //************close - exit kaires apacioje*********////
+    ///////////////////////////////////////////////////////
+    @FXML
+    private void handleCancelGDS() {
+    	mainGoodsApp.closeGoodsDetail();
+    }
+    ///////////////////////////////////////////////////////
+    //************close - exit kaires pabaiga**********////
     ///////////////////////////////////////////////////////
 
 }

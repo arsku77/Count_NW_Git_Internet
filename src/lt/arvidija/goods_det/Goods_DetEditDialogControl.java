@@ -94,8 +94,8 @@ public class Goods_DetEditDialogControl {
      * Called when the user clicks ok.
      */
     @FXML
-    private void handleOk() {
-        if (isInputValid()) {
+    private void handleOk() {//kai paspaudziam ok, jei nera klaidu, t.y. isInputValid true -> pakeiciam modelio ojekto savybes, t.y. reiksmes su seteriais
+        if (isInputValid()) {//is parasytu lauku reiksmiu pakeiciame modelio reiksmes -> jomis bus uzpildyta lentele
         	goodsdetail.setGdsAutoID(Integer.parseInt(gdsAutoIDFieldEd.getText()));
             goodsdetail.setGdsID(Integer.parseInt(gdsIDFieldEd.getText()));
         	goodsdetail.setGdsName(gdsNameFieldEd.getText());
